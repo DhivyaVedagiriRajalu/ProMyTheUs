@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class TestSignIn {
 
     SignInPage objSignIn;
+    TalentsHomePage objTalentsHome;
     WebDriver driver;
     String excelPath="C:\\Users\\Dhivya Balaji\\IdeaProjects\\ProMyTheUs\\src\\test\\TestData\\";
     String excelName="TestData.xlsx";
@@ -28,9 +29,9 @@ public class TestSignIn {
         driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
         driver.get("http://ec2-52-53-181-39.us-west-1.compute.amazonaws.com/sign-in.html");
 
-        //Create signIn Page object
+        //Creating objects
         objSignIn = new SignInPage(driver);
-
+        objTalentsHome = new TalentsHomePage(driver);
         //setting path to excel to access the data
         ExcelUtils.setExcelFile(excelPath+excelName,"Sheet1");
        }

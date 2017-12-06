@@ -1,0 +1,19 @@
+<suite name="Suite" >
+    <test name="Smoke Test">
+        <groups>
+
+            <run>
+
+                <include name="newTalent" />
+
+            </run>
+
+        </groups>
+      <classes>
+          <class name="TestTalentsHome"></class>
+      </classes>
+    </test>
+</suite>
+
+
+
