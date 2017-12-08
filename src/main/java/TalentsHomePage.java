@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
@@ -45,6 +46,17 @@ public class TalentsHomePage {
     By inActiveTalentsCheckBox = By.xpath("//tr[td[em[@title='INACTIVE']]]/td[div[@class='checkbox c-checkbox']]");
    // By firstRowInTable = By.xpath("//table/tbody/tr[1]/td[div[@class='checkbox c-checkbox']]");
     By archiveButton = By.xpath("//button[text()='Archive']");
+    By firstTalent = By.xpath("//tbody/tr[1]");
+    By secondTalent = By.xpath("//tbody/tr[2]");
+    By selectDropDown = By.xpath("/html/body/app/ui-view/public-area/div/ui-view/talents-section/div/section/div/div/spinner-container/div[1]/div/div[1]/div/div/select");
+    By talentName = By.linkText("tyiyu  wrwe");
+    By personBtn = By.xpath("//*[@id=\"talentForm\"]/wizard-form/div/ol/li[2]");
+    By profileIcon = By.xpath("//li[@class='dropdown dropdown-list']/a/em[@class='icon-user']");
+    By signOut = By.xpath("//a[@class='list-group-item']/div/div[2]/p[text()='Sign Out']");
+    By tradeMark = By.xpath("//footer/div[1]");
+    By version = By.xpath("//footer/div[2]");
+    By iconOptions=By.xpath("/html/body/app/ui-view/public-area/div/header/nav/div[2]/ul[2]/li[2]/ul/li/div/a");
+
 
     //constructor
     public TalentsHomePage(WebDriver driver){
@@ -59,8 +71,7 @@ public class TalentsHomePage {
 
     //Click New tab in talents home
     public void clickNew(){
-        //System.out.println("link name "+driver.findElement(newTab).getText());
-        driver.findElement(newTab).click();
+       driver.findElement(newTab).click();
     }
 
     //Select category to created new talent
@@ -73,38 +84,25 @@ public class TalentsHomePage {
  }
 
     //Enter firstName and LastName in Personal Tab
-    public void enter_firstName_lastName() throws Exception{
-        String sFirstName = ExcelUtils.getCellData(3,1);
+    public void enter_firstName_lastName(String sFirstName,String sLastName) throws Exception{
         driver.findElement(firstName).sendKeys(sFirstName);
-
-        String sLastName = ExcelUtils.getCellData(3,2);
         driver.findElement(lastName).sendKeys(sLastName);
     }
 
     //Enter address and contact details
-    public void enter_address_contact() throws Exception{
-        String street = ExcelUtils.getCellData(4,1);
+    public void enter_address_contact(String street, String city, String email, String phone, String state, String zip) throws Exception{
         driver.findElement(addressLine1).sendKeys(street);
-
-        String city = ExcelUtils.getCellData(4,2);
         driver.findElement(addressLine2).sendKeys(city);
-
-        String state = ExcelUtils.getCellData(6,1);
-        System.out.println("State " + state);
+        driver.findElement(emailAdress).sendKeys(email);
+        driver.findElement(phoneNumber).sendKeys(phone);
+        System.out.println("ph "+phone);
         driver.findElement(addressLine3).sendKeys(state);
 
-        String zip = ExcelUtils.getCellData(6,2);
+        //String zip = ExcelUtils.getCellData(6,2);
         System.out.println("zip " + zip);
         driver.findElement(addressLine4).sendKeys(zip);
 
-        String email = ExcelUtils.getCellData(5,1);
-        driver.findElement(emailAdress).sendKeys(email);
 
-        String phone = ExcelUtils.getCellData(5,2);
-        System.out.println("in phone section");
-
-        driver.findElement(phoneNumber).sendKeys(phone);
-        System.out.println("ph "+phone);
     }
 
     //Click QuickTest tab to finish the talent creation
@@ -133,8 +131,7 @@ public class TalentsHomePage {
     }
 
     //search talent using search field in talent's home page
-    public List<WebElement> search_talent() throws Exception{
-        String searchName = ExcelUtils.getCellData(7,1);
+    public List<WebElement> search_talent(String searchName) throws Exception{
         driver.findElement(searchTalent).sendKeys(searchName);
         waitVar = new WebDriverWait(driver,15);
         waitVar.until(ExpectedConditions.visibilityOf(driver.findElement(searchTalentBtn)));
@@ -171,13 +168,13 @@ public class TalentsHomePage {
 
     //Verify Talents are active by default
     public int no_Of_Talents(){
+        waitVar = new WebDriverWait(driver,15);
+        waitVar.until(ExpectedConditions.visibilityOfElementLocated(tableRows));
         int noOfTalents = driver.findElements(tableRows).size();
-        System.out.println("avilable "+noOfTalents);
         return noOfTalents;
     }
     public int no_Of_Active_Talents(){
         int noOfActiveTalents = driver.findElements(activeTalents).size();
-        System.out.println("active "+noOfActiveTalents);
         return noOfActiveTalents;
     }
 
@@ -231,15 +228,62 @@ public class TalentsHomePage {
     }
 
     //Change inactive challenge status to active
-    public void archive_Talent() {
+    public WebElement archive_Talent() {
+        WebElement secondRow = null;
         List<WebElement> noOfTalents = driver.findElements(tableRows);
         if(noOfTalents.size()>0){
+          secondRow = driver.findElement(secondTalent);
           driver.findElement(firstCheckBox).click();
           WebElement archive = driver.findElement(archiveButton);
           if(archive.isEnabled()){
               archive.click();
           }
         }
+        return secondRow;
+    }
 
+    //Select number of talents to be displayed in first page
+    public String numberOfTalentsInFirstPage(String noOfTalentToDisplay) {
+        Select selectVar = new Select(driver.findElement(selectDropDown));
+        selectVar.selectByVisibleText(noOfTalentToDisplay);
+        String noOfRowsInPage1 = driver.findElements(tableRows).size()+"";
+        return noOfRowsInPage1;
+    }
+
+    //Navigate to talent's profile by clicking talent's name
+    public String[] clickTalentName(String title){
+        driver.findElement(talentName).click();
+        String[] name = new String[2];
+        waitVar = new WebDriverWait(driver,15);
+        waitVar.until(ExpectedConditions.visibilityOfElementLocated(personBtn));
+        driver.findElement(personBtn).click();
+        waitVar = new WebDriverWait(driver,15);
+        waitVar.until(ExpectedConditions.titleIs(title));
+        name[0]=driver.findElement(firstName).getAttribute("value");
+        name[1]=driver.findElement(lastName).getAttribute("value");
+        return name;
+    }
+
+    //Click sign out under profile icon
+    public void clickSignOut(){
+        driver.findElement(profileIcon).click();
+        driver.findElement(signOut).click();
+    }
+
+    //Check trademark in footer
+    public WebElement checkForTrademark(){
+        return driver.findElement(tradeMark);
+    }
+
+    //Check verrsion in footer
+    public WebElement checkForVersion(){
+        return driver.findElement(version);
+    }
+
+    //Click profile icon
+    public List<WebElement> clickProfileIcon(){
+        driver.findElement(profileIcon).click();
+        List<WebElement> profileOptions = driver.findElements(iconOptions);
+        return profileOptions;
     }
 }

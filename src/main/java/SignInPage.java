@@ -21,14 +21,14 @@ public class SignInPage {
         return driver.findElement(password);
     }
     //Set user name in textbox
-    public String setUserName() throws Exception{
-        String strUserName = ExcelUtils.getCellData(1,1);
+    public String setUserName(String strUserName) throws Exception{
+        //String strUserName = ExcelUtils.getCellData(1,1);
         driver.findElement(userName).sendKeys(strUserName);
         return strUserName;
     }
     //Set password in password textbox
-    public String setPassword()throws Exception{
-        String strPassword = ExcelUtils.getCellData(1,2);
+    public String setPassword(String strPassword)throws Exception{
+        //String strPassword = ExcelUtils.getCellData(1,2);
         driver.findElement(password).sendKeys(strPassword);
         return strPassword;
     }
