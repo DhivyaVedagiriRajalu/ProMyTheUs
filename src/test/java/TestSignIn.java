@@ -38,8 +38,7 @@ public class TestSignIn {
         //Creating objects
         objSignIn = new SignInPage(driver);
         objTalentsHome = new TalentsHomePage(driver);
-        //setting path to excel to access the data
-       // ExcelUtils.setExcelFile(excelPath,sheetName);
+
        }
 
      @Test(priority = 0, dataProvider = "TestData")
