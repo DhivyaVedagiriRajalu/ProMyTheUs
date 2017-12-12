@@ -34,15 +34,13 @@ public class TestTalentsHome extends TestSignIn{
     //Select category to created new talent
     @Test(enabled = false,groups = {"newTalent"}, priority = 4)
     public void test_create_new_talent() throws Exception{
-        //test_click_new_tab();
-        objTalentsHome.clickCategory_selectOption();
+      objTalentsHome.clickCategory_selectOption();
     }
 
     //Enter firstName and lastName in Personal tab
     @Test(enabled = false,groups = {"newTalent"}, priority = 5 ,dataProvider="TestData")
     public void test_enter_firstName_lastName(String firtName,String lastName) throws Exception{
        objTalentsHome.enter_firstName_lastName(firtName,lastName);
-       // title = ExcelUtils.getCellData(2,1);
     }
 
     //Enter address and contact details in Personal tab
@@ -172,8 +170,11 @@ public class TestTalentsHome extends TestSignIn{
     @Test(enabled = false,priority = 18)
     public void test_archive_talent() {
 
-        WebElement secondRow = objTalentsHome.archive_Talent();
-        WebElement firstRow = driver.findElement(objTalentsHome.firstTalent);
+        int secondRow = objTalentsHome.secondTalent.hashCode();
+        System.out.println(secondRow);
+        objTalentsHome.archive_Talent();
+        int firstRow = objTalentsHome.firstTalent.hashCode();
+        System.out.println(firstRow);
         Assert.assertEquals(secondRow,firstRow);
     }
 
@@ -207,7 +208,7 @@ public class TestTalentsHome extends TestSignIn{
     }
 
     //To verify version at the bottom of the talent's personal page
-    @Test(enabled = false,priority = 23, dataProvider="TestData")
+    @Test(enabled = true,priority = 23, dataProvider="TestData")
     public void test_app_version(String version) {
         WebElement versionDisplayed = objTalentsHome.checkForVersion();
         Boolean actualResult = versionDisplayed.getAttribute("textContent").contains(version);

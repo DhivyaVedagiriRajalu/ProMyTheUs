@@ -1,40 +1,48 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class SignInPage {
     WebDriver driver;
-    By userName = By.name("email");
-    By password = By.name("password");
-    By login = By.id("login");
+
+    @FindBy(name="email")
+    WebElement userName;
+
+    @FindBy(name="password")
+    WebElement userPassword;
+
+    @FindBy(id="login")
+    WebElement userLogin;
+
 
     public SignInPage(WebDriver driver){
-       this.driver = driver;
+
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     //Get username element
     public WebElement getuserName(){
-        return driver.findElement(userName);
+        return userName;
     }
     //Get password element
     public WebElement getPassword(){
-        return driver.findElement(password);
+        return userPassword;
     }
     //Set user name in textbox
     public String setUserName(String strUserName) throws Exception{
-        //String strUserName = ExcelUtils.getCellData(1,1);
-        driver.findElement(userName).sendKeys(strUserName);
+        userName.sendKeys(strUserName);
         return strUserName;
     }
     //Set password in password textbox
     public String setPassword(String strPassword)throws Exception{
-        //String strPassword = ExcelUtils.getCellData(1,2);
-        driver.findElement(password).sendKeys(strPassword);
+        userPassword.sendKeys(strPassword);
         return strPassword;
     }
 
     //Click Login button
     public void clickLogin(){
-        driver.findElement(login).click();
+        userLogin.click();
     }
 }

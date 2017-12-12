@@ -1,6 +1,9 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,103 +15,210 @@ public class TalentsHomePage {
     WebDriver driver;
     WebDriverWait waitVar;
     //public WebElement dropdown;
-    By userName = By.className("img-responsive");
-    By newTab = By.linkText("New");
-    //By dropDown = By.xpath("//span[@class='btn btn-default form-control ui-select-toggle']");
-    By dropDown = By.xpath("//div[@name='category']");
-    By selectOption = By.xpath("//span[@class='ui-select-choices-row-inner' and text()='Music']");
-    //By talentList = By.xpath("//li[@id='ui-select-choices-0']/div[contains(@class,'ui-select-choices-row ng-scope')]");
-    By nextBtn = By.xpath("//button[text()='Next']");
-    By firstName = By.name("firstName");
-    By lastName = By.name("lastName");
-    By quickTestTab = By.xpath("//li/span[text()='Quick Tests']");
-    By finshBtn = By.xpath("//button[text()='Finish']");
-    By addressLine1 = By.id("address");
-    By addressLine2 = By.name("city");
-    By addressLine3 = By.name("addressState");
-    By addressLine4 = By.name("zip");
-    By emailAdress = By.name("email");
-    By phoneNumber = By.name("phone");
-    By nameEntered = By.xpath("//table/tbody/tr[1]/td[2]");
-    By addressEntered = By.xpath("//table/tbody/tr[1]/td[4]");
-    By emailEntered = By.xpath("//table/tbody/tr[1]/td[6]");
-    By phoneEntered = By.xpath("//table/tbody/tr[1]/td[5]");
-    By editIcon = By.xpath("(//a[@class='clear-hover'])[1]");
-    By searchTalent = By.name("search");
-    By searchTalentBtn = By.xpath("//button[text()='Search']");
-    By firstCheckBox = By.xpath("(//input[@type = 'checkbox'])[2]");
-    By tableRows = By.xpath("//tbody/tr");
-    By selectAllCheckBox = By.xpath("(//input[@type = 'checkbox'])[1]");
-    By activeTalents = By.xpath("//tbody/tr/td[@class='status text-center']/em[@title='ACTIVE']");
-    By disableButton = By.xpath("//button[text()='Disable']");
-    By activeTalentsCheckBox = By.xpath("//tr[td[em[@title='ACTIVE']]]/td[div[@class='checkbox c-checkbox']]");
-    By enableButton = By.xpath("//button[text()='Enable']");
-    By inActiveTalentsCheckBox = By.xpath("//tr[td[em[@title='INACTIVE']]]/td[div[@class='checkbox c-checkbox']]");
+    @FindBy(className="img-responsive")
+    WebElement userName;
+
+    @FindBy(linkText="New")
+    WebElement newTab;
+
+    @FindBy(xpath="//div[@name='category']")
+    WebElement dropDown;
+
+    @FindBy(xpath="//span[@class='ui-select-choices-row-inner' and text()='Music']")
+    WebElement selectOption;
+
+    @FindBy(xpath="//button[text()='Next']")
+    WebElement nextBtn;
+
+    @FindBy(name="firstName")
+    WebElement firstName;
+
+    @FindBy(name="lastName")
+    WebElement lastName;
+
+    @FindBy(xpath="//li/span[text()='Quick Tests']")
+    WebElement quickTestTab;
+
+    @FindBy(xpath="//button[text()='Finish']")
+    WebElement finshBtn;
+
+    @FindBy(id="address")
+    WebElement addressLine1;
+
+    @FindBy(name="city")
+    WebElement addressLine2;
+
+    @FindBy(name="addressState")
+    WebElement addressLine3;
+
+    @FindBy(name="zip")
+    WebElement addressLine4;
+
+    @FindBy(name="email")
+    WebElement emailAdress;
+
+    @FindBy(name="phone")
+    WebElement phoneNumber;
+
+    @FindBy(xpath="//table/tbody/tr[1]/td[2]")
+    WebElement nameEntered;
+
+    @FindBy(xpath="//table/tbody/tr[1]/td[4]")
+    WebElement addressEntered;
+
+    @FindBy(xpath="//table/tbody/tr[1]/td[6]")
+    WebElement emailEntered;
+
+    @FindBy(xpath="//table/tbody/tr[1]/td[5]")
+    WebElement phoneEntered;
+
+    @FindBy(xpath="(//a[@class='clear-hover'])[1]")
+    WebElement editIcon;
+
+    @FindBy(name="search")
+    WebElement searchTalent;
+
+    @FindBy(xpath="//button[text()='Search']")
+    WebElement searchTalentBtn;
+
+    @FindBy(xpath="(//input[@type = 'checkbox'])[2]")
+    WebElement firstCheckBox;
+
+    @FindAll({@FindBy(xpath = "//tbody/tr")})
+    List<WebElement> tableRows;
+    By byTableRows = By.xpath("//tbody/tr");
+
+    @FindBy(xpath="(//input[@type = 'checkbox'])[1]")
+    WebElement selectAllCheckBox;
+
+    @FindAll({@FindBy(xpath = "//tbody/tr/td[@class='status text-center']/em[@title='ACTIVE']")})
+    List<WebElement> activeTalents;
+
+    @FindBy(xpath="//button[text()='Disable']")
+    WebElement disableButton;
+
+    @FindAll({@FindBy(xpath = "//tr[td[em[@title='ACTIVE']]]/td[div[@class='checkbox c-checkbox']]")})
+    List<WebElement> activeTalentsCheckBox;
+
+    @FindBy(xpath="//button[text()='Enable']")
+    WebElement enableButton;
+
+    @FindAll({@FindBy(xpath = "//tr[td[em[@title='INACTIVE']]]/td[div[@class='checkbox c-checkbox']]")})
+    List<WebElement> inActiveTalentsCheckBox;
+
+    @FindBy(xpath="//button[text()='Archive']")
+    WebElement archiveButton;
+
+    @FindBy(xpath="//tbody/tr[1]")
+    WebElement firstTalent;
+
+    @FindBy(xpath="//tbody/tr[2]")
+    WebElement secondTalent;
+
+    @FindBy(xpath="/html/body/app/ui-view/public-area/div/ui-view/talents-section/div/section/div/div/spinner-container/div[1]/div/div[1]/div/div/select")
+    WebElement selectDropDown;
+
+    @FindBy(linkText="tyiyu  wrwe")
+    WebElement talentName;
+
+    @FindBy(xpath="//*[@id=\"talentForm\"]/wizard-form/div/ol/li[2]")
+    WebElement personalBtn;
+    By byPersonalBtn = By.xpath("//*[@id=\"talentForm\"]/wizard-form/div/ol/li[2]");
+
+    @FindBy(xpath="//li[@class='dropdown dropdown-list']/a/em[@class='icon-user']")
+    WebElement profileIcon;
+
+    @FindBy(xpath="//a[@class='list-group-item']/div/div[2]/p[text()='Sign Out']")
+    WebElement signOut;
+
+    @FindBy(xpath="//footer/div[1]")
+    WebElement tradeMark;
+
+    @FindBy(xpath="//footer/div[2]")
+    WebElement version;
+
+
+    @FindAll({@FindBy(xpath = "/html/body/app/ui-view/public-area/div/header/nav/div[2]/ul[2]/li[2]/ul/li/div/a")})
+    List<WebElement> iconOptions;
+
+
+
+   // By selectAllCheckBox = By.xpath("(//input[@type = 'checkbox'])[1]");
+   // By activeTalents = By.xpath("//tbody/tr/td[@class='status text-center']/em[@title='ACTIVE']");
+   // By disableButton = By.xpath("//button[text()='Disable']");
+  //  By activeTalentsCheckBox = By.xpath("//tr[td[em[@title='ACTIVE']]]/td[div[@class='checkbox c-checkbox']]");
+    //By enableButton = By.xpath("//button[text()='Enable']");
+  //  By inActiveTalentsCheckBox = By.xpath("//tr[td[em[@title='INACTIVE']]]/td[div[@class='checkbox c-checkbox']]");
    // By firstRowInTable = By.xpath("//table/tbody/tr[1]/td[div[@class='checkbox c-checkbox']]");
-    By archiveButton = By.xpath("//button[text()='Archive']");
-    By firstTalent = By.xpath("//tbody/tr[1]");
-    By secondTalent = By.xpath("//tbody/tr[2]");
-    By selectDropDown = By.xpath("/html/body/app/ui-view/public-area/div/ui-view/talents-section/div/section/div/div/spinner-container/div[1]/div/div[1]/div/div/select");
-    By talentName = By.linkText("tyiyu  wrwe");
-    By personBtn = By.xpath("//*[@id=\"talentForm\"]/wizard-form/div/ol/li[2]");
-    By profileIcon = By.xpath("//li[@class='dropdown dropdown-list']/a/em[@class='icon-user']");
-    By signOut = By.xpath("//a[@class='list-group-item']/div/div[2]/p[text()='Sign Out']");
-    By tradeMark = By.xpath("//footer/div[1]");
-    By version = By.xpath("//footer/div[2]");
-    By iconOptions=By.xpath("/html/body/app/ui-view/public-area/div/header/nav/div[2]/ul[2]/li[2]/ul/li/div/a");
+   // By archiveButton = By.xpath("//button[text()='Archive']");
+   // By firstTalent = By.xpath("//tbody/tr[1]");
+   // By secondTalent = By.xpath("//tbody/tr[2]");
+  //  By selectDropDown = By.xpath("/html/body/app/ui-view/public-area/div/ui-view/talents-section/div/section/div/div/spinner-container/div[1]/div/div[1]/div/div/select");
+  //  By talentName = By.linkText("tyiyu  wrwe");
+  //  By personBtn = By.xpath("//*[@id=\"talentForm\"]/wizard-form/div/ol/li[2]");
+  //  By profileIcon = By.xpath("//li[@class='dropdown dropdown-list']/a/em[@class='icon-user']");
+   // By signOut = By.xpath("//a[@class='list-group-item']/div/div[2]/p[text()='Sign Out']");
+   // By tradeMark = By.xpath("//footer/div[1]");
+   // By version = By.xpath("//footer/div[2]");
+   // By iconOptions=By.xpath("/html/body/app/ui-view/public-area/div/header/nav/div[2]/ul[2]/li[2]/ul/li/div/a");
+
+
+    //@FindBy(xpath=""  "")
+    // return WebElement usernamefield;
+
+    //public void typeusername(){
 
 
     //constructor
     public TalentsHomePage(WebDriver driver){
+
         this.driver = driver;
+        PageFactory.initElements(driver,this);
     }
 
     //Click ProMyTheUs Logo in talents home
     public void clickLogo(){
-
-        driver.findElement(userName).click();
+        userName.click();
     }
 
     //Click New tab in talents home
     public void clickNew(){
-       driver.findElement(newTab).click();
+       newTab.click();
     }
 
     //Select category to created new talent
     public void clickCategory_selectOption() {
         for(int i=0;i<=2;i++){
-            driver.findElement(dropDown).click();
+            dropDown.click();
         }
-        driver.findElement(selectOption).click();
-        driver.findElement(nextBtn).click();
+        selectOption.click();
+        nextBtn.click();
  }
 
     //Enter firstName and LastName in Personal Tab
     public void enter_firstName_lastName(String sFirstName,String sLastName) throws Exception{
-        driver.findElement(firstName).sendKeys(sFirstName);
-        driver.findElement(lastName).sendKeys(sLastName);
+        firstName.sendKeys(sFirstName);
+        lastName.sendKeys(sLastName);
     }
 
     //Enter address and contact details
     public void enter_address_contact(String street, String city, String email, String phone, String state, String zip) throws Exception{
-        driver.findElement(addressLine1).sendKeys(street);
-        driver.findElement(addressLine2).sendKeys(city);
-        driver.findElement(emailAdress).sendKeys(email);
-        driver.findElement(phoneNumber).sendKeys(phone);
+        addressLine1.sendKeys(street);
+        addressLine2.sendKeys(city);
+        emailAdress.sendKeys(email);
+        phoneNumber.sendKeys(phone);
         System.out.println("ph "+phone);
-        driver.findElement(addressLine3).sendKeys(state);
+        addressLine3.sendKeys(state);
 
         //String zip = ExcelUtils.getCellData(6,2);
         System.out.println("zip " + zip);
-        driver.findElement(addressLine4).sendKeys(zip);
-
-
-    }
+        addressLine4.sendKeys(zip);
+   }
 
     //Click QuickTest tab to finish the talent creation
     public void click_QuickTest(){
-        driver.findElement(quickTestTab).click();
-        driver.findElement(finshBtn).click();
+        quickTestTab.click();
+        finshBtn.click();
     }
 
     //Send the data displayed in talent home page for verification
@@ -117,34 +227,34 @@ public class TalentsHomePage {
         String title = ExcelUtils.getCellData(2,1);
         waitVar = new WebDriverWait(driver,15);
         waitVar.until(ExpectedConditions.titleIs(title));
-        talentInfo[0]=driver.findElement(nameEntered).getText();
-        talentInfo[1]=driver.findElement(addressEntered).getText();
-        talentInfo[2]=driver.findElement(emailEntered).getText();
-        talentInfo[3]=driver.findElement(phoneEntered).getText();
+        talentInfo[0]=nameEntered.getText();
+        talentInfo[1]=addressEntered.getText();
+        talentInfo[2]=emailEntered.getText();
+        talentInfo[3]=phoneEntered.getText();
 
         return talentInfo;
     }
 
     //edit talent profile
     public void click_edit_talent(){
-        driver.findElement(editIcon).click();
+        editIcon.click();
     }
 
     //search talent using search field in talent's home page
     public List<WebElement> search_talent(String searchName) throws Exception{
-        driver.findElement(searchTalent).sendKeys(searchName);
+        searchTalent.sendKeys(searchName);
         waitVar = new WebDriverWait(driver,15);
-        waitVar.until(ExpectedConditions.visibilityOf(driver.findElement(searchTalentBtn)));
-        driver.findElement(searchTalentBtn).click();
+        waitVar.until(ExpectedConditions.visibilityOf(searchTalentBtn));
+        searchTalentBtn.click();
 
 
-        List<WebElement> searchedData = driver.findElements(tableRows);
+        List<WebElement> searchedData = tableRows;
         return searchedData;
     }
 
     //Select talent
     public WebElement select_Talent(){
-        WebElement checkBox = driver.findElement(firstCheckBox);
+        WebElement checkBox = firstCheckBox;
         checkBox.click();
         return checkBox;
     }
@@ -152,8 +262,8 @@ public class TalentsHomePage {
     public List<WebElement> select_Multiple_Talent(){
       //  By tableRows1 = By.xpath();
         waitVar = new WebDriverWait(driver,15);
-        waitVar.until(ExpectedConditions.visibilityOfElementLocated(tableRows));
-        List<WebElement> checkBoxList = driver.findElements(tableRows);
+        waitVar.until(ExpectedConditions.visibilityOfElementLocated(byTableRows));
+        List<WebElement> checkBoxList = tableRows;
         for (WebElement x: checkBoxList) {
             x.click();
         }
@@ -161,20 +271,20 @@ public class TalentsHomePage {
     }
     //Select All talent
     public List<WebElement> select_All_Talent(){
-        driver.findElement(selectAllCheckBox).click();
-        List<WebElement> noOfTalents = driver.findElements(tableRows);
+        selectAllCheckBox.click();
+        List<WebElement> noOfTalents = tableRows;
         return noOfTalents;
     }
 
     //Verify Talents are active by default
     public int no_Of_Talents(){
         waitVar = new WebDriverWait(driver,15);
-        waitVar.until(ExpectedConditions.visibilityOfElementLocated(tableRows));
-        int noOfTalents = driver.findElements(tableRows).size();
+        waitVar.until(ExpectedConditions.visibilityOfElementLocated(byTableRows));
+        int noOfTalents = tableRows.size();
         return noOfTalents;
     }
     public int no_Of_Active_Talents(){
-        int noOfActiveTalents = driver.findElements(activeTalents).size();
+        int noOfActiveTalents = activeTalents.size();
         return noOfActiveTalents;
     }
 
@@ -182,7 +292,7 @@ public class TalentsHomePage {
     public List<WebElement> disable_Talent() {
         WebElement inactiveColumn;
         List<WebElement> elements_disabled = new ArrayList<WebElement>();
-        List<WebElement> activeTalentList = driver.findElements(activeTalentsCheckBox);
+        List<WebElement> activeTalentList = activeTalentsCheckBox;
         System.out.println("activeTalentList.size() "+activeTalentList.size());
         if(activeTalentList.size()>=1){
             for (WebElement element:activeTalentList) {
@@ -191,10 +301,9 @@ public class TalentsHomePage {
                 elements_disabled.add(inactiveColumn);
 
             }
-            if(driver.findElement(disableButton).isEnabled()) {
-                driver.findElement(disableButton).click();
+            if(disableButton.isEnabled()) {
+               disableButton.click();
                 //to retrieve one column element from another column element in a table row
-
                 // element.click();
             }
 
@@ -209,7 +318,7 @@ public class TalentsHomePage {
     public List<WebElement> enable_Talent() {
         WebElement activeColumn;
         List<WebElement> elements_enabled = new ArrayList<WebElement>();
-        List<WebElement> inActiveTalentList = driver.findElements(inActiveTalentsCheckBox);
+        List<WebElement> inActiveTalentList = inActiveTalentsCheckBox;
         System.out.println("inActiveTalentList.size() "+inActiveTalentList.size());
         if(inActiveTalentList.size()>=1){
             for (WebElement element:inActiveTalentList) {
@@ -217,8 +326,8 @@ public class TalentsHomePage {
                 activeColumn = element.findElement(By.xpath("//tr/td/em[@title='INACTIVE']"));
                 elements_enabled.add(activeColumn);
             }
-            if(driver.findElement(enableButton).isEnabled()) {
-                driver.findElement(enableButton).click();
+            if(enableButton.isEnabled()) {
+                enableButton.click();
             }
         }
         else{
@@ -228,62 +337,60 @@ public class TalentsHomePage {
     }
 
     //Change inactive challenge status to active
-    public WebElement archive_Talent() {
-        WebElement secondRow = null;
-        List<WebElement> noOfTalents = driver.findElements(tableRows);
+    public void archive_Talent() {
+        List<WebElement> noOfTalents = tableRows;
         if(noOfTalents.size()>0){
-          secondRow = driver.findElement(secondTalent);
-          driver.findElement(firstCheckBox).click();
-          WebElement archive = driver.findElement(archiveButton);
+          firstCheckBox.click();
+          WebElement archive = archiveButton;
           if(archive.isEnabled()){
               archive.click();
           }
         }
-        return secondRow;
+
     }
 
     //Select number of talents to be displayed in first page
     public String numberOfTalentsInFirstPage(String noOfTalentToDisplay) {
-        Select selectVar = new Select(driver.findElement(selectDropDown));
+        Select selectVar = new Select(selectDropDown);
         selectVar.selectByVisibleText(noOfTalentToDisplay);
-        String noOfRowsInPage1 = driver.findElements(tableRows).size()+"";
+        String noOfRowsInPage1 = tableRows.size()+"";
         return noOfRowsInPage1;
     }
 
     //Navigate to talent's profile by clicking talent's name
     public String[] clickTalentName(String title){
-        driver.findElement(talentName).click();
+        talentName.click();
         String[] name = new String[2];
         waitVar = new WebDriverWait(driver,15);
-        waitVar.until(ExpectedConditions.visibilityOfElementLocated(personBtn));
-        driver.findElement(personBtn).click();
+        waitVar.until(ExpectedConditions.visibilityOfElementLocated(byPersonalBtn));
+        personalBtn.click();
         waitVar = new WebDriverWait(driver,15);
         waitVar.until(ExpectedConditions.titleIs(title));
-        name[0]=driver.findElement(firstName).getAttribute("value");
-        name[1]=driver.findElement(lastName).getAttribute("value");
+        name[0]=firstName.getAttribute("value");
+        name[1]=lastName.getAttribute("value");
         return name;
     }
 
     //Click sign out under profile icon
     public void clickSignOut(){
-        driver.findElement(profileIcon).click();
-        driver.findElement(signOut).click();
+        profileIcon.click();
+        signOut.click();
     }
 
     //Check trademark in footer
     public WebElement checkForTrademark(){
-        return driver.findElement(tradeMark);
+        return tradeMark;
     }
 
     //Check verrsion in footer
     public WebElement checkForVersion(){
-        return driver.findElement(version);
+        return version;
     }
 
     //Click profile icon
     public List<WebElement> clickProfileIcon(){
-        driver.findElement(profileIcon).click();
-        List<WebElement> profileOptions = driver.findElements(iconOptions);
+        profileIcon.click();
+        List<WebElement> profileOptions = iconOptions;
         return profileOptions;
     }
 }
